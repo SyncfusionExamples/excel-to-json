@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="Common">
+    @{ Html.BeginForm("Index", "Home", FormMethod.Post);
+
+    <div class="tablediv">
+        <div class="rowdiv">
+            <p style="font-weight:normal">
+                Click the "Input Template" button to view the input Excel document. Please note that the Microsoft Excel viewer or Microsoft Excel is required to view the Excel document.
+            </p>
+            <p style="font-weight:normal">
+                Click the "Convert to JSON" button to view the JSON data.
+            </p>
+        </div>
+        <br />
+    </div>
+    <div class="rowdiv">
+        <div class="celldiv">
+            <label style="font-weight:normal">
+                Convert
+            </label>
+            &nbsp;&nbsp;&nbsp;
+            <select name="ConvertOptions" id="convertOption" style="width:120px;">
+                <option>Workbook</option>
+                <option>Worksheet</option>
+                <option>Range</option>
+            </select>
+        </div>
+        <br />
+    </div>
+    <div>        
+        <ejs-tab id="ej2Tab">
+            <e-tab-tabitems>
+                <e-tab-tabitem >
+                    <e-content-template>
+                        <div>
+                            <div class="e-tab-header">
+                                <div>Sheet1</div>
+                                <div>Sheet2</div>
+                            </div>
+                            <div class="e-content">
+                                <div>
+                                    <ejs-grid id="Sheet1" dataSource="@ViewBag.Tab1" height="250" width="900">
+                                        <e-grid-columns>
+                                            <e-grid-column field="Category" headerText="Category" width="120"></e-grid-column>
+                                            <e-grid-column field="Category Detail" headerText="Category Detail" textAlign="Left" width="150"></e-grid-column>
+                                            <e-grid-column field="Title(s)" headerText="Title(s)" width="150"></e-grid-column>
+                                            <e-grid-column field="Firm Name" headerText="Firm Name" textAlign="Left" width="150"></e-grid-column>
+                                            <e-grid-column field="Client" headerText="Client" textAlign="Left" width="100"></e-grid-column>
+                                            <e-grid-column field="Award" headerText="Award" width="100"></e-grid-column>
+                                        </e-grid-columns>
+                                    </ejs-grid>
+                                </div>
+                                <div>
+                                    <div>
+                                        <ejs-grid id="Sheet2" dataSource="@ViewBag.Tab2" height="250" width="900">
+
+                                            <e-grid-columns>
+                                                <e-grid-column field="Date" headerText="Date" textAlign="Left" width="120"></e-grid-column>
+                                                <e-grid-column field="Region" headerText="Region" textAlign="Left" width="150"></e-grid-column>
+                                                <e-grid-column field="Employee" headerText="Employee" width="150"></e-grid-column>
+                                                <e-grid-column field="Item" headerText="Item" textAlign="Left" width="150"></e-grid-column>
+                                                <e-grid-column field="Units" headerText="Units" textAlign="Left" width="100"></e-grid-column>
+                                                <e-grid-column field="Unit Cost" headerText="Unit Cost" width="100"></e-grid-column>
+                                                <e-grid-column field="Total" headerText="Total" textAlign="Left" width="150"></e-grid-column>
+                                            </e-grid-columns>
+                                        </ejs-grid>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </e-content-template>
+                </e-tab-tabitem>
+            </e-tab-tabitems>
+        </ejs-tab>
+    </div>
+    <br/>
+    <div class="rowdiv">
+        <div class="celldiv">
+            <input id="inputTemplate" class="e-btn" type="submit" name="button" value="Input Template" style="width:150px;" />
+            &nbsp;&nbsp;&nbsp;
+            <input id="convertToJSON" class="e-btn" type="submit" name="button" value="Convert to JSON" style="width:150px;" />
+        </div>
+    </div>
+    }
+</div>
+
+<script>
+    var GridData =@Html.Raw( @Json.Serialize(ViewBag.data));
+function load() {
+    var grid = document.getElementById('Grid').ej2_instances[0];
+    grid.dataSource = GridData;
+}
+</script>
